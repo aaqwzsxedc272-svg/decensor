@@ -1,10 +1,20 @@
-# Jasna on a cloud GPU
+# Run Jasna in the cloud
 
-A small Docker wrapper for running the official [Jasna](https://github.com/Kruk2/jasna) Linux NVIDIA release on a rented GPU machine. It downloads the official release on first start and runs Jasna's existing command-line interface; it does not modify or repackage Jasna.
+This repository provides a **free Google Colab notebook** and a Docker option for running the official [Jasna](https://github.com/Kruk2/jasna) Linux NVIDIA release.
 
-> **This is a GPU worker, not a hosted website.** You connect to your cloud machine with its terminal/SSH, place media in `workspace/`, and run Jasna there. Nothing opens an unauthenticated upload or processing endpoint to the internet.
+## Free Google Colab
 
-## What you need
+[Open the free Colab notebook](https://colab.research.google.com/github/aaqwzsxedc272-svg/decensor/blob/arena%2F3112b79d-decensor/notebooks/jasna_colab_free.ipynb) — choose a free GPU runtime if Google offers one, then run the cells in order. It uses Jasna's free BasicVSR++ model; no Docker or license code is needed. The notebook mounts your Google Drive, copies the video onto the temporary Colab VM, restores it, and copies the result back to Drive.
+
+> **Free GPU access is not guaranteed.** Colab chooses the GPU and host driver and may impose quotas or disconnect idle/long-running sessions. Jasna requires an NVIDIA GPU with compute capability 7.5+ and Linux driver 580+. The notebook checks these and stops if the assigned free runtime is incompatible; it cannot upgrade Google's host driver or bypass Jasna's requirements. Save results to Drive before the Colab session ends.
+
+## Docker / rented GPU
+
+For a self-managed GPU VM or a provider that supports custom Docker images, the Docker setup below downloads the official release at startup and runs Jasna's existing CLI. It does not modify or repackage Jasna.
+
+> **This is a GPU worker, not a hosted website.** The notebook and Docker worker do not expose an unauthenticated upload or processing endpoint to the internet.
+
+### Docker prerequisites
 
 - A Linux x86-64 cloud VM/pod with an NVIDIA GPU supported by Jasna. The GPU must be passed through to the container; host NVIDIA driver **580+** is required.
 - Docker Engine, Docker Compose v2, and NVIDIA Container Toolkit (for a self-managed VM). A cloud provider's custom-container GPU template may supply these for you.
@@ -87,4 +97,4 @@ Cloud-provider container and volume settings vary. The upstream guide has provid
 
 ## License and upstream
 
-Jasna's public application is licensed under [AGPL-3.0](https://github.com/Kruk2/jasna/blob/main/LICENSE). Model files and bundled third-party components have their own terms; see upstream [licensing](https://github.com/Kruk2/jasna/blob/main/LICENSING.md). This repository contains only the Docker wrapper and fetches official runtime archives directly from [Kruk2/jasna releases](https://github.com/Kruk2/jasna/releases).
+Jasna's public application is licensed under [AGPL-3.0](https://github.com/Kruk2/jasna/blob/main/LICENSE). Model files and bundled third-party components have their own terms; see upstream [licensing](https://github.com/Kruk2/jasna/blob/main/LICENSING.md). The Colab notebook and Docker wrapper fetch official runtime archives directly from [Kruk2/jasna releases](https://github.com/Kruk2/jasna/releases); Jasna itself is not modified or redistributed here.
