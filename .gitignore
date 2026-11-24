@@ -1,0 +1,3 @@
+# Media uploads and generated video outputs
+/workspace/*
+!/workspace/.gitkeep

@@ -1,0 +1,24 @@
+services:
+  jasna:
+    build:
+      context: .
+    image: decensor/jasna-cloud:0.12.3
+    environment:
+      JASNA_VERSION: ${JASNA_VERSION:-v0.12.3}
+      NVIDIA_DRIVER_CAPABILITIES: all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    working_dir: /workspace
+    volumes:
+      - ./workspace:/workspace
+      - jasna-config:/root/jasna-config
+    stdin_open: true
+    tty: true
+
+volumes:
+  jasna-config:

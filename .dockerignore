@@ -1,0 +1,9 @@
+.git
+.gitignore
+workspace
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.part*
